@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
 
+  scope :admin, where(:admin = > true)
+
   def feed
     Micropost.from_users_followed_by(self)
   end
