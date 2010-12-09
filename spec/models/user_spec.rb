@@ -176,16 +176,65 @@ describe User do
       end
 
       it "should included the users microposts" do
-        @user.feed.include?(@mp1).should be_true
-        @user.feed.include?(@mp2).should be_true
+        @user.feed.should include(@mp1)
+        @user.feed.should include(@mp2)
       end
 
       it "should not include a different users microposts" do
-        mp3 = Factory(:micropost,
-                      :user => Factory(:user,
-                                       :email => Factory.next(:email)))
-        @user.feed.include?(mp3).should be_false
+        dif_user = Factory(:user, :email => Factory.next(:email))
+        dif_user_micropost = Factory(:micropost, :user => dif_user)
+        @user.feed.should_not include(dif_user_micropost)
       end
+
+      it "should include the microposts of followed users" do
+        followed = Factory(:user, :email => Factory.next(:email))
+        followed_micropost = Factory(:micropost, :user => followed)
+        @user.follow!(followed)
+        @user.feed.should include(followed_micropost) 
+      end
+    end
+  end
+
+  describe "relationships" do
+    before(:each) do
+      @user = User.create!(@attr)
+      @followed = Factory(:user)
+    end
+
+    it "should have a relationship method" do
+      @user.should respond_to(:relationships)
+    end
+
+    it "should have a following method" do
+      @user.should respond_to(:following)
+    end
+
+    it "should have a following? method" do
+      @user.should respond_to(:following?)
+    end
+
+    it "should have a follow! method" do
+      @user.should respond_to(:follow!)
+    end
+
+    it "should follow another user" do
+      @user.follow!(@followed)
+      @user.should be_following(@followed)
+    end
+
+    it "should include the followed user in the following array" do
+      @user.follow!(@followed)
+      @user.following.should include(@followed)
+    end
+
+    it "should have an unfollow! method" do
+       @followed.should respond_to(:unfollow!)
+    end
+
+    it "should unfollow a user" do
+      @user.follow!(@followed)
+      @user.unfollow!(@followed)
+      @user.should_not be_following(@followed)
     end
   end
 end
