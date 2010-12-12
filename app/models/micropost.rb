@@ -22,11 +22,8 @@ class Micropost < ActiveRecord::Base
 
   private
   def self.followed_by(user)
-    followed_ids = %(SELECT followed_id FROM relationships WHERE follower_id = :user_id)
-    if followed_ids.count > 0
-      where("user_id IN (#{followed_ids})")
-    else
-      where("user_id = :user_id", { :user_id => user })
-    end
+    myquery = "user_id IN (SELECT followed_id FROM relationships WHERE follower_id = " + 
+              user.id + ") OR user_id = " + user.id
+    where(myquery)
   end
 end
