@@ -1,10 +1,10 @@
 <tr>
   <td class='micropost'>
-    <span class='content'><%= micropost.content %></span><br />
+    <span class='content'><%= micropost.content %></span>
     <span class='timestamp'>
       <% taiw = time_ago_in_words(micropost.created_at) -%>
       <%= link_to "Posted #{taiw} ago", micropost %>
-    </span><br />
+    </span>
   </td>
   <% if current_user?(micropost.user) %>
     <td>

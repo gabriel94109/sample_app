@@ -1,2 +1,5 @@
-<h3><%= @user.name %> said... </h3>
-<%= render :partial => 'micropost', :object => @micropost %>
+<% unless @micropost.nil? %>
+  <table class="microposts" summary="User micropost">
+    <%= render :partial => 'shared/feed_item', :object => @micropost %>
+  </table>
+<% end %>
