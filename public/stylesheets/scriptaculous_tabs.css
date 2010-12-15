@@ -56,6 +56,10 @@
 .tabContent {
   clear:both;
   border:2px solid #42577B;
-  padding-top:2px;
+  padding-top: 2px;
   background-color:#FFF;
+}
+
+.tabContent div {
+  margin: 10px;
 }
