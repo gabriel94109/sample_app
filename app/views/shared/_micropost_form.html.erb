@@ -1,7 +1,8 @@
 <%= form_for @micropost do |f| -%>
   <%= render 'shared/error_messages', :object => f.object %>
   <div class='field'>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, :onkeyup => 'micropost_limit()' %><br/>
+    <%= f.label '140', :id => 'limit' %> characters remaining
   </div>
   <div class='actions'>
     <%= f.submit "Submit" %>
