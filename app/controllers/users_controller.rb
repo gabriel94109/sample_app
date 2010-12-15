@@ -6,14 +6,14 @@ class UsersController < ApplicationController
   def following
     @title = 'Following'
     @user = User.find(params[:id])
-    @users = @user.following.paginate(:page => params[:page])
+    @users = @user.following.paginate(:page => params[:page], :per_page => 10)
     render 'show_follow'
   end
 
   def followers
     @title = 'Followers'
     @user = User.find(params[:id])
-    @users = @user.followers.paginate(:page => params[:page])
+    @users = @user.followers.paginate(:page => params[:page], :per_page => 10)
     render 'show_follow'
   end
 
@@ -36,12 +36,12 @@ class UsersController < ApplicationController
 
   def index
     @title = 'All users'
-    @users = User.paginate(:page => params[:page])
+    @users = User.paginate(:page => params[:page], :per_page => 20)
   end
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
+    @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5)
     @title = @user.name
 
     respond_to do |format|
