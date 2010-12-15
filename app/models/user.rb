@@ -36,14 +36,14 @@ class User < ActiveRecord::Base
   validates :email, 
     :presence => true,
     :format => { :with => email_regex },
-    :uniqueness => { :case_sensitive => false }
+    :uniqueness => true
 
   validates :password, 
     :presence => true,
     :confirmation => true,
     :length => { :within => 6..40 }
   
-  before_save :encrypt_password
+  before_save :encrypt_password, :email_downcase
 
   scope :admin, where(:admin => true)
 
@@ -56,6 +56,8 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(email, submitted_password)
+    email.strip!
+    email.downcase!
     user = find_by_email(email)
     return nil if user.nil?
     return user if user.has_password?(submitted_password)
@@ -79,6 +81,10 @@ class User < ActiveRecord::Base
   end
 
   private
+  def email_downcase  # called before User.save
+    self.email.downcase!
+  end
+
   def encrypt_password
     return if password.nil?
     self.salt = make_salt if new_record?

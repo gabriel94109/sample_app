@@ -4,7 +4,7 @@ describe PagesController do
   render_views
 
   before(:each) do
-    @base_title = "Ruby on Rails Tutorial Sample App"
+    @base_title = "Micropost"
   end
 
   describe "GET 'home'" do
@@ -52,15 +52,15 @@ describe PagesController do
     end
   end
 
-  describe "GET 'about'" do
+  describe "GET 'links'" do
     it "should be successful" do
-      get 'about'
+      get 'links'
       response.should be_success
     end
     it "should have the right title" do
-      get 'about'
+      get 'links'
       response.should have_selector("title",
-        :content => @base_title + " | About")
+        :content => @base_title + " | Links")
     end
   end
   describe "GET 'help'" do

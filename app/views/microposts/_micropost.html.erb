@@ -1,6 +1,10 @@
+<% 
+  # called by User#show
+  # refactor ? with shared/feed_item
+-%>
 <tr>
   <td class='micropost'>
-    <span class='content'><%= micropost.content %></span>
+    <span class='content'><%= wrap(micropost.content) %></span>
     <span class='timestamp'>
       <% taiw = time_ago_in_words(micropost.created_at) -%>
       <%= link_to "Posted #{taiw} ago", micropost %>
