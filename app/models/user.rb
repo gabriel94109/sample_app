@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
   
   validates :name, 
     :presence => true,
-    :length => { :maximum => 50 }
+    :length => { :maximum => 50 },
+    :uniqueness => true
 
   validates :email, 
     :presence => true,
@@ -92,7 +93,7 @@ class User < ActiveRecord::Base
   def normalize_fields  # called before User.save
     self.email.downcase!
     self.name.downcase!
-    self.name.tr(' ', '_')
+    self.name.tr!(' ', '_')
   end
 
   def encrypt_password
