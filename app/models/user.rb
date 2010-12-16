@@ -47,6 +47,14 @@ class User < ActiveRecord::Base
 
   scope :admin, where(:admin => true)
 
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
+
   def feed
     Micropost.from_users_followed_by(self)
   end

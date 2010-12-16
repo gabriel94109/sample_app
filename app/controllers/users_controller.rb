@@ -6,14 +6,14 @@ class UsersController < ApplicationController
   def following
     @title = 'Following'
     @user = User.find(params[:id])
-    @users = @user.following.paginate(:page => params[:page], :per_page => 10)
+    @users = @user.following.paginate(:page => params[:page], :per_page => 5)
     render 'show_follow'
   end
 
   def followers
     @title = 'Followers'
     @user = User.find(params[:id])
-    @users = @user.followers.paginate(:page => params[:page], :per_page => 10)
+    @users = @user.followers.paginate(:page => params[:page], :per_page => 5)
     render 'show_follow'
   end
 
@@ -35,8 +35,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @title = 'All users'
-    @users = User.paginate(:page => params[:page], :per_page => 20)
+    @title = 'Search all users'
+    @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
