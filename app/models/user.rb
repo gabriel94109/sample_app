@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
     :confirmation => true,
     :length => { :within => 6..40 }
   
-  before_save :encrypt_password, :email_downcase
+  before_save :encrypt_password, :normalize_fields
 
   scope :admin, where(:admin => true)
 
@@ -89,8 +89,10 @@ class User < ActiveRecord::Base
   end
 
   private
-  def email_downcase  # called before User.save
+  def normalize_fields  # called before User.save
     self.email.downcase!
+    self.name.downcase!
+    self.name.tr(' ', '_')
   end
 
   def encrypt_password

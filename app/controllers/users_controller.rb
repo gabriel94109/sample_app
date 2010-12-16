@@ -40,7 +40,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    if(params[:username])
+      @user = User.find_by_name(params[:username])
+    else
+      @user = User.find(params[:id])
+    end
     @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5)
     @title = @user.name
 

@@ -19,7 +19,9 @@
     </td>
     <td class='sidebar round'>
       <strong>Name</strong> <%= @user.name %><br />
-      <strong>URL</strong> <%= link_to user_path(@user), @user %><br />
+      <strong>URL</strong>
+      <%= link_to request.protocol + request.host_with_port + "/#{@user.name}", "/#{@user.name}" %>
+      <br/>
       <strong>Microposts</strong> <%= @user.microposts.count %>
       <%= render 'shared/stats' %>
       <%= link_to 'RSS Feed', params.merge(:format => :rss) %>

@@ -5,6 +5,7 @@ gem 'sqlite3-ruby', '1.3.2', :require => 'sqlite3'
 gem 'gravatar_image_tag', '0.1.0'
 gem 'will_paginate', '3.0.pre2'
 gem 'faker', '0.3.1'
+gem 'meta-tags', '1.2.3'
 
 group :development do
   gem 'rspec-rails', '2.2.1'

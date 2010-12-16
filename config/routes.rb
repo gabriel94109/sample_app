@@ -15,5 +15,7 @@ SampleApp::Application.routes.draw do
   match '/links', :to => 'pages#links'
   match '/help', :to => 'pages#help'
 
+  match '/:username', :to => 'users#show'
+
   root :to => 'pages#home'
 end
